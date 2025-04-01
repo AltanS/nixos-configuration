@@ -9,25 +9,26 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  }
-    outputs = { self, nixpkgs, home-manager, ... }@inputs: let
-    system = "x86_64-linux";
-    homeStateVersion = "24.11";
-    user = "altan";
-    hosts = [
-      { hostname = "nixos-vm-conqueror"; stateVersion = "24.11"; }
-    ];
+  };
 
-    makeSystem = { hostname, stateVersion }: nixpkgs.lib.nixosSystem {
-      system = system;
-      specialArgs = {
-        inherit inputs stateVersion hostname user;
-      };
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: let
+  system = "x86_64-linux";
+  homeStateVersion = "24.11";
+  user = "altan";
+  hosts = [
+    { hostname = "nixos-vm-conqueror"; stateVersion = "24.11"; }
+  ];
 
-      modules = [
-        ./hosts/${hostname}/configuration.nix
-      ];
+  makeSystem = { hostname, stateVersion }: nixpkgs.lib.nixosSystem {
+    system = system;
+    specialArgs = {
+      inherit inputs stateVersion hostname user;
     };
+
+    modules = [
+      ./hosts/${hostname}/configuration.nix
+    ];
+  };
 
   in {
     nixosConfigurations = nixpkgs.lib.foldl' (configs: host:
