@@ -16,6 +16,16 @@
   boot.loader.systemd-boot.enable = false;
   boot.loader.efi.canTouchEfiVariables = false;
 
+  # VM-specific graphics settings
+  services.xserver.videoDrivers = [ "qxl" ];
+  hardware.opengl.extraPackages = with pkgs; [ mesa.drivers ];
+  
+  # Wayland needs these for VM
+  environment.sessionVariables = {
+    WLR_NO_HARDWARE_CURSORS = "1";
+    WLR_RENDERER_ALLOW_SOFTWARE = "1";
+  };
+
   environment.systemPackages = [ pkgs.home-manager ];
 
   networking.hostName = hostname;
