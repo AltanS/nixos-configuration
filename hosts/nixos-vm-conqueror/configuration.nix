@@ -22,7 +22,7 @@
 
   # Enable Spice agent for clipboard sharing
   services.spice-vdagentd.enable = true;
-
+  services.xserver.enable = true;
   # Enable the OpenSSH daemon
   services.openssh.enable = true;
 
