@@ -4,5 +4,6 @@
     ./hyprland
     ./swaync
     ./wofi
+    ./kitty.nix
   ];
 }
