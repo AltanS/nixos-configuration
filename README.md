@@ -17,8 +17,12 @@ ssh -T git@github.com
 git clone git@github.com:AltanS/nixos-configuration.git
 
 # rebuild from flake
-nixos-rebuild switch --flake ./#nixos-vm-conqueror
+sudo nixos-rebuild switch --flake ./#nixos-vm-conqueror
+
+# add new hosts configuration
+# REPLACE NEW_HOST
+sudo nixos-generate-config --show-hardware-config > nixos-config/hosts/NEW_HOST/hardware-configuration.nix
 
 # activate home manager
-nix run home-manager -- switch --flake .#<username>
+nix run home-manager -- switch --flake .#altan
 ```
