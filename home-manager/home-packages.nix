@@ -14,6 +14,7 @@
     fzf
     htop
     ripgrep
+    cliphist
     unzip
     w3m
     wget
