@@ -19,17 +19,6 @@
   # VM-specific display configuration
   services.xserver.videoDrivers = [ "qxl" "virtio" ];  # VM-specific drivers
 
-  # Enhanced graphics support for VM
-  hardware.opengl = {
-    driSupport32Bit = true;  # If you need 32-bit support
-    extraPackages = with pkgs; [
-      mesa.drivers
-      virtualgl
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
-  };
-
   # VM-specific environment variables for Wayland/Hyprland
   environment.sessionVariables = {
     # Required for Hyprland in VMs

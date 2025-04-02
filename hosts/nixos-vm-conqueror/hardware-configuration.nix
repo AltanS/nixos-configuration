@@ -28,4 +28,14 @@
   # networking.interfaces.enp1s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
+  # Enhanced graphics support for VM
+  hardware.graphics = {
+    extraPackages = with pkgs; [
+      mesa.drivers
+      virtualgl
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+  };
 }

@@ -5,7 +5,7 @@
   };
 
   # Basic OpenGL support
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
   };
 
