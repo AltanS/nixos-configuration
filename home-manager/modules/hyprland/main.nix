@@ -16,7 +16,7 @@
       monitor = ",1920x1080@60,auto,1";
       "$mainMod" = "SUPER";
       "$terminal" = "kitty";
-      "$fileManager" = "$terminal -e sh -c 'ranger'";
+      "$fileManager" = "nautilus";
       "$menu" = "wofi";
 
       exec-once = [
