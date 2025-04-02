@@ -7,7 +7,7 @@
     displayManager = {
       gdm.enable = true;
       # Default to Hyprland if available, fallback to a basic session if not
-      defaultSession = "hyprland";
+      defaultSession = "hyprland-uwsm";
     };
   };
 
