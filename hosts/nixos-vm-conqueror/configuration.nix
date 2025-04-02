@@ -16,12 +16,42 @@
   boot.loader.systemd-boot.enable = false;
   boot.loader.efi.canTouchEfiVariables = false;
 
-  environment.systemPackages = [ pkgs.home-manager ];
+  # VM-specific display configuration
+  services.xserver.videoDrivers = [ "qxl" "virtio" ];  # VM-specific drivers
+
+  # Enhanced graphics support for VM
+  hardware.opengl = {
+    driSupport32Bit = true;  # If you need 32-bit support
+    extraPackages = with pkgs; [
+      mesa.drivers
+      virtualgl
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+  };
+
+  # VM-specific environment variables for Wayland/Hyprland
+  environment.sessionVariables = {
+    # Required for Hyprland in VMs
+    WLR_NO_HARDWARE_CURSORS = "1";  # Fixes cursor issues in VMs
+    WLR_RENDERER_ALLOW_SOFTWARE = "1";  # Allows software rendering
+    LIBGL_ALWAYS_SOFTWARE = "1";  # Force software rendering
+    __GL_THREADED_OPTIMIZATIONS = "1";  # For better performance
+  };
+
+  # VM-specific packages
+  environment.systemPackages = with pkgs; [ 
+    home-manager
+    vulkan-tools  # For checking Vulkan status
+    mesa-demos    # For testing 3D acceleration
+  ];
 
   networking.hostName = hostname;
 
   # Enable Spice agent for clipboard sharing
   services.spice-vdagentd.enable = true;
+
+  # Enable the OpenSSH daemon
   services.openssh.enable = true;
 
   # SSH settings
