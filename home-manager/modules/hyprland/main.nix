@@ -15,7 +15,7 @@
 
       monitor = ",1920x1080@60,auto,1";
       "$mainMod" = "SUPER";
-      "$terminal" = "kitty";
+      "$terminal" = "ghostty";
       "$fileManager" = "nautilus";
       "$menu" = "wofi";
 

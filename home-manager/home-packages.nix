@@ -10,6 +10,7 @@
     obsidian
 
     # CLI utils
+    ghostty
     fzf
     htop
     ripgrep
