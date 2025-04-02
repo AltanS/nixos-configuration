@@ -20,5 +20,5 @@ git clone git@github.com:AltanS/nixos-configuration.git
 nixos-rebuild switch --flake ./#nixos-vm-conqueror
 
 # activate home manager
-home-manager switch
+nix run home-manager -- switch --flake .#<username>
 ```
