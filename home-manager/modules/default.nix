@@ -1,6 +1,7 @@
 {
   imports = [
     ./bat.nix
-    ./hyprland.nix
+    ./hyprland
+    ./wofi
   ];
 }
