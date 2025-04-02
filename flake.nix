@@ -17,6 +17,7 @@
     user = "altan";
     hosts = [
       { hostname = "nixos-vm-conqueror"; stateVersion = "24.11"; }
+      { hostname = "thinkcentre"; stateVersion = "24.11"; }
     ];
 
     makeSystem = { hostname, stateVersion }: nixpkgs.lib.nixosSystem {
