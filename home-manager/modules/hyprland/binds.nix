@@ -3,7 +3,7 @@
     bind = [
       # Standard binds from hyprland wiki
       "$mainMod, Q, exec, $terminal" # Open terminal (kitty)
-      "$mainMod, C, killclient," # Kill active window
+      "$mainMod, C, killactive," # Kill active window
       "$mainMod, M, exit," # Exit Hyprland
       "$mainMod, E, exec, $fileManager" # Open file manager (Need to define $fileManager or replace)
       "$mainMod, V, togglefloating," # Toggle floating window
@@ -44,8 +44,8 @@
       # Switch workspaces with mainMod + mouse wheel
       "$mainMod, mouse_down, workspace, e+1"
       "$mainMod, mouse_up, workspace, e-1"
-
-      # Move/resize windows with mainMod + LMB/RMB and dragging
+    ];
+    bindm = [
       "$mainMod, mouse:272, movewindow"
       "$mainMod, mouse:273, resizewindow"
     ];
