@@ -14,7 +14,11 @@
   outputs = { self, nixpkgs, home-manager, ... }@inputs: let
     system = "x86_64-linux";
     homeStateVersion = "24.11";
-    user = "altan";
+    # Define users and their data paths
+    users = {
+      altan = { dataPath = ./home-manager/users/altan.nix; };
+      # bob = { dataPath = ./home-manager/users/bob.nix; }; # Add future users here
+    };
     hosts = [
       { hostname = "nixos-vm-conqueror"; stateVersion = "24.11"; }
       { hostname = "thinkcentre"; stateVersion = "24.11"; }
@@ -23,7 +27,8 @@
     makeSystem = { hostname, stateVersion }: nixpkgs.lib.nixosSystem {
       system = system;
       specialArgs = {
-        inherit inputs stateVersion hostname user;
+        inherit inputs stateVersion hostname;
+        user = "altan"; # Still hardcoded for now - could be derived from host if needed
       };
 
       modules = [
@@ -40,15 +45,21 @@
         };
       }) {} hosts;
 
-    homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.${system};
-      extraSpecialArgs = {
-        inherit inputs homeStateVersion user;
+    # Build home configurations for all defined users
+    homeConfigurations = nixpkgs.lib.mapAttrs' (username: userData: {
+      name = username;
+      value = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.${system};
+        extraSpecialArgs = {
+          inherit inputs homeStateVersion;
+          user = username; # Pass the username itself
+          userSpecificData = import userData.dataPath { inherit pkgs; }; # Pass the imported user data
+        };
+        modules = [
+          # Main entry point - this now gets the userSpecificData via specialArgs
+          ./home-manager/home.nix 
+        ];
       };
-
-      modules = [
-        ./home-manager/home.nix
-      ];
-    };
+    }) users; 
   };
 }
