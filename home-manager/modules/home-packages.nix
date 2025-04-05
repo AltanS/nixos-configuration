@@ -12,6 +12,7 @@
     # code-cursor # Assuming vscode replaced this? Add back if needed.
     obsidian
     vscode # Keeping vscode as it was in both versions
+    code-cursor
 
     # CLI utils
     ghostty
