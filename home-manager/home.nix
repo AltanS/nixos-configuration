@@ -7,7 +7,7 @@
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkg.pname or "") [
     "obsidian"
     "vscode"
-    "code-cursor"
+    "cursor"
     # Add other unfree package names here if needed
     # e.g., "slack" "zoom"
   ];
