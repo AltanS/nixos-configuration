@@ -3,6 +3,13 @@
     ./modules
   ];
 
+  # Allow specific unfree packages by predicate
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkg.pname or "") [
+    "obsidian"
+    # Add other unfree package names here if needed
+    # e.g., "slack" "zoom"
+  ];
+
   programs.kitty.enable = true;
   
   home = {
