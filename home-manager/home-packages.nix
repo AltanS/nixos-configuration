@@ -8,18 +8,14 @@
     anki
     code-cursor
     obsidian
+    vscode
 
     # CLI utils
     ghostty
-    fzf
-    htop
-    ripgrep
     cliphist
-    unzip
-    w3m
-    wget
+    kitty
     wl-clipboard
-    zip
+    rofi
 
     # Coding stuff
     nodejs
