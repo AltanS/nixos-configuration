@@ -48,18 +48,24 @@
     # Build home configurations for all defined users
     homeConfigurations = nixpkgs.lib.mapAttrs' (username: userData: {
       name = username;
-      value = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system};
-        extraSpecialArgs = {
-          inherit inputs homeStateVersion;
-          user = username; # Pass the username itself
-          userSpecificData = import userData.dataPath { inherit pkgs; }; # Pass the imported user data
+      value = let
+        # Define pkgs for the current user configuration
+        currentPkgs = nixpkgs.legacyPackages.${system};
+        # Import the user data, passing the defined pkgs
+        currentUserSpecificData = import userData.dataPath { pkgs = currentPkgs; };
+      in
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = currentPkgs; # Use the defined pkgs
+          extraSpecialArgs = {
+            inherit inputs homeStateVersion;
+            user = username; # Pass the username itself
+            userSpecificData = currentUserSpecificData; # Pass the imported user data
+          };
+          modules = [
+            # Main entry point - this now gets the userSpecificData via specialArgs
+            ./home-manager/home.nix 
+          ];
         };
-        modules = [
-          # Main entry point - this now gets the userSpecificData via specialArgs
-          ./home-manager/home.nix 
-        ];
-      };
     }) users; 
   };
 }
