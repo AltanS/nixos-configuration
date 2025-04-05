@@ -40,11 +40,6 @@
           size = 3;
           passes = 1;
         };
-
-        drop_shadow = true;
-        shadow_range = 4;
-        shadow_render_power = 3;
-        "col.shadow" = "rgba(1a1a1aee)";
       };
 
       animations = {
@@ -70,10 +65,6 @@
       dwindle = {
         pseudotile = true;
         preserve_split = true;
-      };
-
-      master = {
-        new_is_master = true;
       };
 
       misc = {
