@@ -1,13 +1,10 @@
-{ config, pkgs, ... }:
-let 
-  userData = config.specialArgs.userSpecificData; 
-in 
+{ config, pkgs, userSpecificData, ... }:
 {
   programs.git = {
     enable = true;
-    # Use data passed from the flake
-    userName = userData.gitUsername; 
-    userEmail = userData.gitEmail; 
+    # Use userSpecificData directly
+    userName = userSpecificData.gitUsername or null;
+    userEmail = userSpecificData.gitEmail or null;
 
     # Optional: Set default editor (if different from system $EDITOR)
     # editor = "nvim";

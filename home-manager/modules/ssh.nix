@@ -1,7 +1,4 @@
-{ config, pkgs, ... }:
-let 
-  userData = config.specialArgs.userSpecificData; 
-in
+{ config, pkgs, userSpecificData, ... }:
 {
   # Enable the SSH agent service
   programs.ssh = {
@@ -12,7 +9,7 @@ in
     # Optional: Specify default identities to add automatically on startup
     # Assumes these private keys exist in ~/.ssh/
     # Do NOT put the key content here, just the paths.
-    identities = pkgs.lib.lists.optionals (userData ? "sshIdentities") userData.sshIdentities;
+    identities = pkgs.lib.lists.optionals (userSpecificData ? "sshIdentities") userSpecificData.sshIdentities;
 
     # Optional: Add common hosts for convenience
     # addKeysToAgent = "yes"; # Add keys to agent when needed

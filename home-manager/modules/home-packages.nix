@@ -1,7 +1,4 @@
-{ config, pkgs, ... }:
-let 
-  userData = config.specialArgs.userSpecificData; 
-in
+{ config, pkgs, userSpecificData, ... }:
 {
   # Allow unfree packages within Home Manager scope if needed
   # nixpkgs.config.allowUnfree = true; # Already set globally in modules/nix.nix
@@ -63,5 +60,5 @@ in
     lm_sensors
     pciutils
     usbutils
-  ] ++ pkgs.lib.lists.optionals (userData ? "extraPackages") userData.extraPackages;
+  ] ++ pkgs.lib.lists.optionals (userSpecificData ? "extraPackages") userSpecificData.extraPackages;
 } 
