@@ -37,28 +37,10 @@
     htop
     tree
     ripgrep
-    fd
     fzf
     bat
-    exa
     zoxide
-    # Development tools
-    gcc
-    gnumake
-    cmake
     # Text editors
-    neovim
-    # Terminal emulators
-    alacritty
-    # File managers
-    ranger
-    nnn
-    # Media tools
-    ffmpeg
-    imagemagick
-    # System tools
-    lm_sensors
-    pciutils
-    usbutils
+    nano
   ] ++ pkgs.lib.lists.optionals (userSpecificData ? "extraPackages") userSpecificData.extraPackages;
 } 
