@@ -1,4 +1,4 @@
-{ homeStateVersion, user, ... }: {
+{ lib, config, homeStateVersion, user, ... }: {
   imports = [
     ./modules
   ];
@@ -12,13 +12,25 @@
     # e.g., "slack" "zoom"
   ];
 
-  programs.kitty.enable = true;
-  
+  # Basic user settings
   home = {
     username = user;
     homeDirectory = "/home/${user}";
     stateVersion = homeStateVersion;
   };
 
-  services.ssh-agent.enable = true;
+  # Ensure basic services/integrations are enabled
+  dbus.enable = true; # Ensures user D-Bus session integration
+  xdg.enable = true;  # Sets up XDG base directories and environment variables
+
+  # Enable user services
+  services.ssh-agent = {
+    enable = true;
+    # Load specific identities defined in userSpecificData
+    identities = lib.lists.optionals (config.specialArgs.userSpecificData ? "sshIdentities") 
+                                     config.specialArgs.userSpecificData.sshIdentities;
+  };
+
+  # Enable programs configured via modules (like kitty, rofi, etc.)
+  # programs.kitty.enable = true; # This might be set within modules/kitty.nix already
 }
