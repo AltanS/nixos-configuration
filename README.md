@@ -1,28 +1,65 @@
-# nixos-configuration
+# NixOS Configuration
 
+Flake-based NixOS configuration with Hyprland.
 
-## First time stuff
-``` bash
-# install git
-nix-env -iA nixos.git
+## Structure
 
-#copy the ssh key into ~/.ssh
-#add ssh key to the agent
-ssh-add ~/.ssh/a.sarisin 
+```
+.
+├── flake.nix           # Entry point
+├── hosts/              # Machine-specific configs
+│   ├── vm/             # QEMU/KVM test VM
+│   └── thinkcentre/    # Physical desktop
+├── system/             # NixOS modules
+│   ├── core/           # Nix, boot, locale, users
+│   ├── desktop/        # Hyprland, audio, greetd
+│   └── hardware/       # VM, Intel, Bluetooth
+├── home/               # Home Manager modules
+│   ├── desktop/        # Hyprland, waybar, rofi
+│   ├── terminal/       # kitty, bat
+│   └── apps/           # git, ssh, packages
+└── users/              # User data (git email, SSH keys)
+```
 
-#test github
-ssh -T git@github.com
+## Usage
 
-# clone this repository
-git clone git@github.com:AltanS/nixos-configuration.git
+```bash
+# Build and switch to a NixOS configuration
+sudo nixos-rebuild switch --flake .#vm
+sudo nixos-rebuild switch --flake .#thinkcentre
 
-# rebuild from flake
-sudo nixos-rebuild switch --flake ./#nixos-vm-conqueror
+# Build VM for testing (runs in QEMU)
+nix build .#vm
+./result/bin/run-vm-vm
 
-# add new hosts configuration
-# REPLACE NEW_HOST
-sudo nixos-generate-config --show-hardware-config > nixos-config/hosts/NEW_HOST/hardware-configuration.nix
-
-# activate home manager
+# Standalone home-manager (non-NixOS systems)
 nix run home-manager -- switch --flake .#altan
 ```
+
+## First Time Setup
+
+```bash
+# Install git
+nix-env -iA nixos.git
+
+# Set up SSH key
+cp /path/to/key ~/.ssh/a.sarisin
+chmod 600 ~/.ssh/a.sarisin
+ssh-add ~/.ssh/a.sarisin
+ssh -T git@github.com
+
+# Clone and apply
+git clone git@github.com:AltanS/nixos-configuration.git
+cd nixos-configuration
+sudo nixos-rebuild switch --flake .#vm  # or .#thinkcentre
+
+# Add new host
+sudo nixos-generate-config --show-hardware-config > hosts/NEW_HOST/hardware.nix
+```
+
+## Hosts
+
+| Host | Description | Display Manager |
+|------|-------------|-----------------|
+| `vm` | QEMU/KVM test VM | greetd + tuigreet |
+| `thinkcentre` | Physical desktop | GDM + GNOME |

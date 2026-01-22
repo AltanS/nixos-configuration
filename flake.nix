@@ -1,8 +1,7 @@
 {
-  description = "My system configuration";
+  description = "NixOS configuration with Hyprland";
 
   inputs = {
-
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
 
     home-manager = {
@@ -11,61 +10,77 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: let
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  let
     system = "x86_64-linux";
     homeStateVersion = "24.11";
-    # Define users and their data paths
+
+    # User definitions
     users = {
-      altan = { dataPath = ./home-manager/users/altan.nix; };
-      # bob = { dataPath = ./home-manager/users/bob.nix; }; # Add future users here
+      altan = { dataPath = ./users/altan.nix; };
     };
+
+    # Host definitions
     hosts = [
-      { hostname = "nixos-vm-conqueror"; stateVersion = "24.11"; }
+      { hostname = "vm"; stateVersion = "24.11"; }
       { hostname = "thinkcentre"; stateVersion = "24.11"; }
     ];
 
-    makeSystem = { hostname, stateVersion }: nixpkgs.lib.nixosSystem {
-      system = system;
-      specialArgs = {
-        inherit inputs stateVersion hostname;
-        user = "altan"; # Still hardcoded for now - could be derived from host if needed
+    # Helper to create NixOS system configuration
+    makeSystem = { hostname, stateVersion }:
+      nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {
+          inherit inputs stateVersion hostname;
+          user = "altan";
+        };
+        modules = [
+          ./hosts/${hostname}
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "backup";
+              extraSpecialArgs = {
+                inherit inputs homeStateVersion;
+                user = "altan";
+                userSpecificData = import ./users/altan.nix { pkgs = nixpkgs.legacyPackages.${system}; };
+              };
+              users.altan = import ./home;
+            };
+          }
+        ];
       };
 
-      modules = [
-        ./hosts/${hostname}/configuration.nix
-        ./modules/default-packages.nix
-      ];
-    };
-
   in {
+    # NixOS configurations for each host
     nixosConfigurations = nixpkgs.lib.foldl' (configs: host:
       configs // {
         "${host.hostname}" = makeSystem {
           inherit (host) hostname stateVersion;
         };
-      }) {} hosts;
+      }
+    ) {} hosts;
 
-    # Build home configurations for all defined users
+    # Standalone home-manager configurations (for non-NixOS systems)
     homeConfigurations = nixpkgs.lib.mapAttrs' (username: userData: {
       name = username;
       value = let
-        # Define pkgs for the current user configuration
-        currentPkgs = nixpkgs.legacyPackages.${system};
-        # Import the user data, passing the defined pkgs
-        currentUserSpecificData = import userData.dataPath { pkgs = currentPkgs; };
-      in
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = currentPkgs; # Use the defined pkgs
-          extraSpecialArgs = {
-            inherit inputs homeStateVersion;
-            user = username; # Pass the username itself
-            userSpecificData = currentUserSpecificData; # Pass the imported user data
-          };
-          modules = [
-            # Main entry point - this now gets the userSpecificData via specialArgs
-            ./home-manager/home.nix 
-          ];
+        pkgs = nixpkgs.legacyPackages.${system};
+        userSpecificData = import userData.dataPath { inherit pkgs; };
+      in home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = {
+          inherit inputs homeStateVersion;
+          user = username;
+          inherit userSpecificData;
         };
-    }) users; 
+        modules = [ ./home ];
+      };
+    }) users;
+
+    # VM build target for quick testing
+    packages.${system}.vm = self.nixosConfigurations.vm.config.system.build.vm;
   };
 }
