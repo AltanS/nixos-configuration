@@ -1,4 +1,4 @@
-{ pkgs, stateVersion, hostname, ... }: {
+{ pkgs, stateVersion, hostname, user, ... }: {
   imports = [
     ./hardware.nix
     ../../system/core
@@ -12,6 +12,10 @@
   boot.loader.grub.device = "/dev/vda";
   boot.loader.systemd-boot.enable = false;
   boot.loader.efi.canTouchEfiVariables = false;
+
+  # Development convenience - VM only!
+  users.users.${user}.initialPassword = "test";
+  security.sudo.wheelNeedsPassword = false;
 
   networking.hostName = hostname;
   networking.networkmanager.enable = true;
