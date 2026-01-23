@@ -11,7 +11,7 @@
     kitty
 
     # Fonts
-    nerd-fonts.jetbrains-mono
+    nerd-fonts-jetbrains-mono
 
     # Icon themes
     papirus-icon-theme
