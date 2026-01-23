@@ -10,8 +10,8 @@
     ghostty
     kitty
 
-    # Fonts
-    nerd-fonts-jetbrains-mono
+    # Fonts (JetBrains Mono with Nerd Font icons)
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
 
     # Icon themes
     papirus-icon-theme
