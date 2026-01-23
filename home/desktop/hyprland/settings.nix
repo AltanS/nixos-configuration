@@ -56,7 +56,7 @@
       };
 
       input = {
-        kb_layout = "us";
+        kb_layout = "eu";  # EurKey - US layout with easy European characters
         follow_mouse = 1;
       };
 

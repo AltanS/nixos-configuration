@@ -5,6 +5,10 @@
     obsidian
     vscode
     code-cursor
+    firefox
+    google-chrome
+    spotify
+    gearlever
 
     # Terminal emulators
     ghostty
