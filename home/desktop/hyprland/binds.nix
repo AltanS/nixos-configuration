@@ -43,6 +43,9 @@
       # Mouse wheel workspace switching
       "$mainMod, mouse_down, workspace, e+1"
       "$mainMod, mouse_up, workspace, e-1"
+
+      # Help - show all keybindings
+      "$mainMod, slash, exec, $terminal --hold -e hyprctl binds"
     ];
 
     bindm = [

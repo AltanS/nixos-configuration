@@ -9,6 +9,7 @@
     google-chrome
     spotify
     gearlever
+    nautilus
 
     # Terminal emulators
     ghostty
