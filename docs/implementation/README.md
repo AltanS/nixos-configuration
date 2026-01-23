@@ -13,7 +13,9 @@ docs/implementation/
 
 ## Active Milestones
 
-None currently.
+| ID | Milestone | Priority | Progress |
+|----|-----------|----------|----------|
+| M02 | [Desktop Polish](milestones/M02-desktop-polish.md) | Medium | 0/4 specs |
 
 ## Completed Milestones
 
