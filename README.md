@@ -63,3 +63,22 @@ sudo nixos-generate-config --show-hardware-config > hosts/NEW_HOST/hardware.nix
 |------|-------------|-----------------|
 | `vm` | QEMU/KVM test VM | greetd + tuigreet |
 | `thinkcentre` | Physical desktop | GDM + GNOME |
+
+## VM Testing
+
+For testing on Fedora Silverblue with virt-manager, see **[docs/vm-testing.md](docs/vm-testing.md)**.
+
+Quick start:
+```bash
+# Download ISO
+curl -LO https://channels.nixos.org/nixos-24.11/latest-nixos-minimal-x86_64-linux.iso
+
+# Create VM in virt-manager with:
+# - 4GB RAM, 4 CPUs, 20GB disk
+# - Video: Virtio + 3D acceleration
+# - Display: Spice, Listen=None, OpenGL enabled
+# - Filesystem: virtiofs share to your config folder
+
+# SSH into live ISO (easier than console)
+ssh nixos@<vm-ip>  # after setting passwd in VM
+```
