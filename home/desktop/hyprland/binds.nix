@@ -3,6 +3,7 @@
     bind = [
       "$mainMod, Q, exec, $terminal"
       "$mainMod, C, killactive,"
+      "ALT, F4, killactive,"
       "$mainMod, M, exit,"
       "$mainMod, E, exec, $fileManager"
       "$mainMod, V, togglefloating,"
