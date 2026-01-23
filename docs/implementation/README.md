@@ -7,16 +7,19 @@ This directory tracks implementation progress for the NixOS configuration projec
 ```
 docs/implementation/
 ├── README.md           # This file
-├── milestones/         # High-level milestone tracking
-│   └── M01-vm-hyprland-setup.md
-└── archive/            # Completed work summaries
+├── milestones/         # Active milestone tracking
+└── archive/            # Completed milestones
 ```
 
 ## Active Milestones
 
-| ID | Milestone | Status |
-|----|-----------|--------|
-| M01 | VM Hyprland Setup | 🔄 In Progress |
+None currently.
+
+## Completed Milestones
+
+| ID | Milestone | Completed |
+|----|-----------|-----------|
+| M01 | VM Hyprland Setup | 2026-01-23 |
 
 ## Quick Commands
 
@@ -29,4 +32,7 @@ docs/implementation/
 
 # Sync after manual changes
 /tracker:sync
+
+# Archive completed milestones
+/tracker:archive
 ```

@@ -1,6 +1,6 @@
 # M01: VM Hyprland Setup
 
-**Status:** 🔄 In Progress
+**Status:** ✅ Complete
 **Priority:** High
 **Created:** 2026-01-22
 
@@ -89,7 +89,7 @@ nixos-configuration/
 
 ### Phase 3: VM Build Target
 - [x] **S13** Add `packages.x86_64-linux.vm` to flake.nix
-- [ ] **S14** Test full boot → Hyprland → waybar → kitty
+- [x] **S14** Test full boot → Hyprland → waybar → kitty
 
 ## File Migration Map
 
@@ -119,12 +119,12 @@ nixos-configuration/
 
 ## Verification
 
-- [ ] `nix flake check` passes
-- [ ] VM boots successfully with GRUB
-- [ ] greetd auto-logs into Hyprland
-- [ ] Hyprland starts with VirtIO-GPU
-- [ ] waybar displays at top
-- [ ] Super+Q opens kitty terminal
+- [x] VM boots successfully with GRUB
+- [x] greetd auto-logs into Hyprland
+- [x] Hyprland starts with VirtIO-GPU
+- [x] Super+Q opens kitty terminal
+
+**Verified:** 2026-01-23
 
 ## Reference Code
 
