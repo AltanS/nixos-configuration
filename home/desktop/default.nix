@@ -5,5 +5,6 @@
     ./rofi.nix
     ./swaync.nix
     ./wallpaper.nix
+    ./gtk.nix
   ];
 }

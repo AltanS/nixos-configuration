@@ -5,7 +5,7 @@
       * {
         border: none;
         border-radius: 0px;
-        font-family: "JetBrains Mono";
+        font-family: "JetBrainsMono Nerd Font";
         font-weight: bold;
         font-size: 16px;
         min-height: 0;

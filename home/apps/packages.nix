@@ -10,6 +10,12 @@
     ghostty
     kitty
 
+    # Fonts
+    nerd-fonts.jetbrains-mono
+
+    # Icon themes
+    papirus-icon-theme
+
     # CLI utilities
     cliphist
     wl-clipboard
