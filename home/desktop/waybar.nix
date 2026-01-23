@@ -89,20 +89,8 @@
           show-special = true;
           special-visible-only = true;
           all-outputs = false;
-          format = "{icon}";
-          format-icons = {
-            "1" = "";
-            "2" = "";
-            "3" = "";
-            "4" = "";
-            "5" = "";
-            "6" = "";
-            "7" = "";
-            "8" = "";
-            "9" = "";
-            "magic" = "";
-          };
-          persistent-workspaces = { "*" = 9; };
+          format = "{name}";
+          persistent-workspaces = { "*" = 5; };
         };
 
         "hyprland/language" = {
@@ -119,27 +107,17 @@
         };
 
         "pulseaudio" = {
-          format = "{icon} {volume}%";
-          format-bluetooth = "{icon} {volume}% ";
-          format-muted = "";
-          format-icons = {
-            "headphones" = "";
-            "handsfree" = "";
-            "headset" = "";
-            "phone" = "";
-            "portable" = "";
-            "car" = "";
-            "default" = ["" ""];
-          };
+          format = "VOL {volume}%";
+          format-bluetooth = "BT {volume}%";
+          format-muted = "MUTE";
           on-click = "pavucontrol";
         };
 
         "battery" = {
           states = { warning = 30; critical = 1; };
-          format = "{icon} {capacity}%";
-          format-charging = " {capacity}%";
-          format-alt = "{time} {icon}";
-          format-icons = ["" "" "" "" ""];
+          format = "BAT {capacity}%";
+          format-charging = "CHG {capacity}%";
+          format-alt = "{time}";
         };
 
         "clock" = {
