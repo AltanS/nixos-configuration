@@ -108,6 +108,18 @@ imports = [
 ];
 ```
 
+### VM SSH Commands
+
+When running SSH commands to the VM, use sshpass to avoid interactive password prompts:
+
+```bash
+# Use sshpass with the VM password from .env
+sshpass -p 'test' ssh altan@192.168.122.114 'command here'
+
+# For interactive shells
+sshpass -p 'test' ssh -t altan@192.168.122.114 'bash -ic "type cat"'
+```
+
 ### Relative Paths After Moving Files
 
 When moving nix files to new directories, update relative paths:
