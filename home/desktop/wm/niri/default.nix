@@ -1,11 +1,12 @@
-{ inputs, desktop, ... }:
+{ desktop, ... }:
 let
   shellCommand = {
     waybar = [ "waybar" ];
     noctalia = [ "noctalia" ];
   }.${desktop.shell};
 in {
-  imports = [ inputs.niri-flake.homeModules.niri ];
+  # Note: niri-flake NixOS module already provides home-manager integration
+  # Don't import homeModules.niri here to avoid conflicts
 
   programs.niri = {
     settings = {
