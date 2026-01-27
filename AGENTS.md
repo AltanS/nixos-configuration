@@ -30,6 +30,81 @@ system/desktop/
   shared/          # Shared system config (audio, xdg portals)
 ```
 
+## Implementation Notes
+
+### niri-flake Integration
+
+The `niri-flake.nixosModules.niri` module automatically provides home-manager integration. Do NOT also import `niri-flake.homeModules.niri` in your home config - this causes option conflicts:
+
+```nix
+# WRONG - causes duplicate option error
+imports = [ inputs.niri-flake.homeModules.niri ];
+
+# CORRECT - just use programs.niri.settings directly
+programs.niri.settings = { ... };
+```
+
+### noctalia Requires Unstable
+
+Noctalia depends on quickshell which is only in nixpkgs-unstable:
+
+```nix
+noctalia = {
+  url = "github:noctalia-dev/noctalia-shell";
+  inputs.nixpkgs.follows = "nixpkgs-unstable";  # NOT nixpkgs
+};
+```
+
+### Conditional Shell Bindings
+
+To add shell-specific keybindings in WM configs, define them separately and merge:
+
+```nix
+{ desktop, ... }:
+let
+  noctaliaBinds = {
+    "Mod+Space".action.spawn = [ "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle" ];
+  };
+  waybarBinds = {
+    "Mod+N".action.spawn = [ "swaync-client" "-t" ];
+  };
+  shellBinds = { noctalia = noctaliaBinds; waybar = waybarBinds; }.${desktop.shell};
+in {
+  programs.niri.settings.binds = {
+    # ... common binds ...
+  } // shellBinds;
+}
+```
+
+### Avoid Duplicate Module Imports
+
+Host configs should NOT directly import modules that are already imported by aggregators (`system/desktop/default.nix`). This can cause unexpected behavior:
+
+```nix
+# WRONG - greetd.nix is already imported via system/desktop
+imports = [
+  ../../system/desktop
+  ../../system/desktop/greetd.nix  # duplicate!
+];
+
+# CORRECT
+imports = [
+  ../../system/desktop  # includes greetd.nix
+];
+```
+
+### Relative Paths After Moving Files
+
+When moving nix files to new directories, update relative paths:
+
+```nix
+# Before (in home/desktop/wallpaper.nix)
+wallpaperDir = ../../assets/wallpapers;
+
+# After (in home/desktop/shared/wallpaper.nix)
+wallpaperDir = ../../../assets/wallpapers;  # one more level up
+```
+
 ## Documentation References
 
 ### Niri (Scrollable Tiling Wayland Compositor)
