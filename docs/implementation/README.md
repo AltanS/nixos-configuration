@@ -15,12 +15,13 @@ docs/implementation/
 
 | ID | Milestone | Priority | Progress |
 |----|-----------|----------|----------|
-| M03 | [Terminal Tools](milestones/M03-terminal-tools.md) | High | 4/4 specs complete |
+| - | No active milestones | - | - |
 
 ## Completed Milestones
 
 | ID | Milestone | Completed |
 |----|-----------|-----------|
+| M03 | [Terminal Tools](archive/M03-terminal-tools.md) | 2026-01-27 |
 | M02 | [Desktop Polish](archive/M02-desktop-polish.md) | 2026-01-27 |
 | M01 | VM Hyprland Setup | 2026-01-23 |
 
