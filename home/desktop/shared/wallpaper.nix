@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  wallpaperDir = ../../assets/wallpapers;
+  wallpaperDir = ../../../assets/wallpapers;
 
   # Time-based wallpaper schedule (similar to original XML):
   # Morning (6am-4pm): a_quiet_mind - calm morning scene
