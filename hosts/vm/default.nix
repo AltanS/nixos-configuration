@@ -4,7 +4,6 @@
     ../../system/core
     ../../system/desktop
     ../../system/hardware/vm.nix
-    ../../system/desktop/greetd.nix
   ];
 
   # VM uses GRUB, not systemd-boot
