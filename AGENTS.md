@@ -83,7 +83,36 @@ Key noctalia concepts:
 | Show Keybinds | Super+/ | Mod+Shift+/ |
 | Notifications | Super+N | Mod+N |
 
-## Testing
+## Development Workflow
+
+### Fast VM Iteration (dev-sync)
+
+Use `./scripts/dev-sync` for rapid development on a VM without git push/pull:
+
+```bash
+# Setup: configure VM connection
+cp .env.example .env
+# Edit .env with VM_HOST, VM_USER, VM_PASS
+
+# Sync files to VM
+./scripts/dev-sync sync
+
+# Sync and rebuild NixOS
+./scripts/dev-sync rebuild
+
+# Sync and run flake check
+./scripts/dev-sync check
+
+# Open SSH session
+./scripts/dev-sync ssh
+```
+
+The script:
+1. Rsyncs files to `~/nixos-sync` on VM
+2. Sudo rsyncs to `/etc/nixos`
+3. Runs the requested command
+
+### Manual Testing
 
 Build without switching:
 ```bash

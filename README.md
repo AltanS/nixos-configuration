@@ -1,23 +1,25 @@
 # NixOS Configuration
 
-Flake-based NixOS configuration with Hyprland.
+Flake-based NixOS configuration with modular WM/shell support.
 
 ## Structure
 
 ```
 .
-├── flake.nix           # Entry point
+├── flake.nix           # Entry point, host definitions with desktop config
 ├── hosts/              # Machine-specific configs
-│   ├── vm/             # QEMU/KVM test VM
-│   └── thinkcentre/    # Physical desktop
+│   ├── vm/             # QEMU/KVM test VM (niri + noctalia)
+│   └── thinkcentre/    # Physical desktop (hyprland + waybar)
 ├── system/             # NixOS modules
 │   ├── core/           # Nix, boot, locale, users
-│   ├── desktop/        # Hyprland, audio, greetd
+│   ├── desktop/        # Modular desktop (wm/, shell/, shared/)
 │   └── hardware/       # VM, Intel, Bluetooth
 ├── home/               # Home Manager modules
-│   ├── desktop/        # Hyprland, waybar, rofi
+│   ├── desktop/        # Modular desktop (wm/, shell/, shared/)
 │   ├── terminal/       # kitty, bat
 │   └── apps/           # git, ssh, packages
+├── scripts/            # Development scripts
+│   └── dev-sync        # Fast VM sync & rebuild
 └── users/              # User data (git email, SSH keys)
 ```
 
@@ -59,10 +61,33 @@ sudo nixos-generate-config --show-hardware-config > hosts/NEW_HOST/hardware.nix
 
 ## Hosts
 
-| Host | Description | Display Manager |
-|------|-------------|-----------------|
-| `vm` | QEMU/KVM test VM | greetd + tuigreet |
-| `thinkcentre` | Physical desktop | GDM + GNOME |
+| Host | Description | WM | Shell |
+|------|-------------|-----|-------|
+| `vm` | QEMU/KVM test VM | niri | noctalia |
+| `thinkcentre` | Physical desktop | hyprland | waybar |
+
+## Development Workflow
+
+For fast iteration when developing on a VM, use the `dev-sync` script instead of git push/pull:
+
+```bash
+# Setup: copy .env.example to .env and configure VM connection
+cp .env.example .env
+
+# Sync files only
+./scripts/dev-sync sync
+
+# Sync and rebuild NixOS
+./scripts/dev-sync rebuild
+
+# Sync and run flake check
+./scripts/dev-sync check
+
+# SSH into VM
+./scripts/dev-sync ssh
+```
+
+The script syncs files directly via rsync, bypassing git for faster iteration.
 
 ## VM Testing
 
