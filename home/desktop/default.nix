@@ -1,10 +1,21 @@
-{
+{ lib, desktop, ... }:
+let
+  wmModule = {
+    hyprland = ./wm/hyprland;
+    niri = ./wm/niri;
+  }.${desktop.wm};
+
+  shellModule = {
+    waybar = ./shell/waybar;
+    noctalia = ./shell/noctalia;
+  }.${desktop.shell};
+in {
   imports = [
-    ./hyprland
-    ./waybar.nix
-    ./rofi.nix
-    ./swaync.nix
-    ./wallpaper.nix
-    ./gtk.nix
+    wmModule
+    shellModule
+    ./shared/rofi.nix
+    ./shared/swaync.nix
+    ./shared/wallpaper.nix
+    ./shared/gtk.nix
   ];
 }

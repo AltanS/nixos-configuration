@@ -1,14 +1,20 @@
 # Minimal display manager for Wayland
-{ pkgs, user, ... }: {
+{ pkgs, user, desktop, ... }:
+let
+  wmCommand = {
+    hyprland = "Hyprland";
+    niri = "niri-session";
+  }.${desktop.wm};
+in {
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd ${wmCommand}";
         user = "greeter";
       };
       initial_session = {
-        command = "Hyprland";
+        command = wmCommand;
         user = user;
       };
     };

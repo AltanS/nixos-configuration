@@ -1,4 +1,10 @@
-{
+{ desktop, ... }:
+let
+  shellCommand = {
+    waybar = "waybar";
+    noctalia = "noctalia";
+  }.${desktop.shell};
+in {
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = false;  # UWSM handles systemd integration
@@ -21,7 +27,7 @@
       exec-once = [
         "swww-daemon"
         "wallpaper-rotate"
-        "waybar"
+        shellCommand
       ];
 
       general = {
