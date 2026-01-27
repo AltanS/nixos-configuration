@@ -1,8 +1,28 @@
-{ desktop, ... }:
+{ desktop, lib, ... }:
 let
   shellCommand = {
     waybar = [ "waybar" ];
     noctalia = [ "noctalia" ];
+  }.${desktop.shell};
+
+  # Shell-specific keybindings
+  noctaliaBinds = {
+    # Noctalia launcher (like rofi but integrated)
+    "Mod+Space".action.spawn = [ "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle" ];
+    # Control center (quick settings, notifications)
+    "Mod+N".action.spawn = [ "qs" "-c" "noctalia-shell" "ipc" "call" "controlCenter" "toggle" ];
+    # Settings panel
+    "Mod+I".action.spawn = [ "qs" "-c" "noctalia-shell" "ipc" "call" "settings" "toggle" ];
+  };
+
+  waybarBinds = {
+    # SwayNC notification center
+    "Mod+N".action.spawn = [ "swaync-client" "-t" ];
+  };
+
+  shellBinds = {
+    noctalia = noctaliaBinds;
+    waybar = waybarBinds;
   }.${desktop.shell};
 in {
   # Note: niri-flake NixOS module already provides home-manager integration
@@ -46,6 +66,9 @@ in {
       ];
 
       binds = {
+        # Show hotkey overlay (Mod+? or Mod+Shift+/)
+        "Mod+Shift+Slash".action.show-hotkey-overlay = {};
+
         # Application launchers
         "Mod+T".action.spawn = "kitty";
         "Mod+D".action.spawn = [ "rofi" "-show" "drun" ];
@@ -114,7 +137,7 @@ in {
 
         # Close window with Alt+F4
         "Alt+F4".action.close-window = {};
-      };
+      } // shellBinds;
     };
   };
 }

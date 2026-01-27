@@ -1,3 +1,101 @@
 # Project Instructions
 
----
+This is a NixOS configuration with modular WM/shell support.
+
+## Architecture
+
+The desktop environment is configurable per-host via `flake.nix`:
+
+```nix
+hosts = [
+  { hostname = "vm"; desktop = { wm = "niri"; shell = "noctalia"; }; }
+  { hostname = "thinkcentre"; desktop = { wm = "hyprland"; shell = "waybar"; }; }
+];
+```
+
+### Directory Structure
+
+```
+home/desktop/
+  wm/hyprland/     # Hyprland window manager config
+  wm/niri/         # Niri window manager config
+  shell/waybar/    # Waybar status bar
+  shell/noctalia/  # Noctalia desktop shell
+  shared/          # Shared components (rofi, swaync, gtk, wallpaper)
+
+system/desktop/
+  wm/hyprland.nix  # Hyprland system config
+  wm/niri.nix      # Niri system config
+  shell/noctalia.nix
+  shared/          # Shared system config (audio, xdg portals)
+```
+
+## Documentation References
+
+### Niri (Scrollable Tiling Wayland Compositor)
+
+- **NixOS Integration**: https://github.com/sodiboo/niri-flake
+  - Provides `programs.niri.settings` for Nix-native configuration
+  - NixOS module: `niri-flake.nixosModules.niri`
+- **Configuration Docs**: https://github.com/YaLTeR/niri/wiki
+  - Key bindings: https://github.com/YaLTeR/niri/wiki/Configuration:-Key-Bindings
+  - Default config: https://github.com/YaLTeR/niri/blob/main/resources/default-config.kdl
+- **Arch Wiki**: https://wiki.archlinux.org/title/Niri
+
+Key niri concepts:
+- `Mod` = Super on TTY, Alt in nested window
+- `Mod+Shift+/` shows hotkey overlay
+- Niri does NOT load default bindings - all binds must be explicit
+
+### Noctalia Shell (Wayland Desktop Shell)
+
+- **Documentation**: https://docs.noctalia.dev/
+  - NixOS setup: https://docs.noctalia.dev/getting-started/nixos/
+  - Keybinds: https://docs.noctalia.dev/getting-started/keybinds/
+- **GitHub**: https://github.com/noctalia-dev/noctalia-shell
+- **Requires**: nixpkgs-unstable (for quickshell dependency)
+
+Key noctalia concepts:
+- No built-in keybindings - configure in your WM
+- IPC commands: `qs -c noctalia-shell ipc call <target> <action>`
+  - `launcher toggle` - application launcher
+  - `controlCenter toggle` - notifications & quick settings
+  - `settings toggle` - settings panel
+
+### Hyprland
+
+- **Wiki**: https://wiki.hyprland.org/
+- **NixOS Wiki**: https://wiki.nixos.org/wiki/Hyprland
+
+### Waybar
+
+- **GitHub**: https://github.com/Alexays/Waybar
+- **Wiki**: https://github.com/Alexays/Waybar/wiki
+
+## Keybinding Conventions
+
+| Action | Hyprland | Niri |
+|--------|----------|------|
+| Terminal | Super+Q | Mod+T |
+| App Launcher | Super+R | Mod+D |
+| File Manager | Super+E | Mod+E |
+| Close Window | Super+C / Alt+F4 | Mod+Q / Alt+F4 |
+| Show Keybinds | Super+/ | Mod+Shift+/ |
+| Notifications | Super+N | Mod+N |
+
+## Testing
+
+Build without switching:
+```bash
+nix build .#nixosConfigurations.vm.config.system.build.toplevel
+```
+
+Check flake:
+```bash
+nix flake check
+```
+
+Rebuild and switch:
+```bash
+sudo nixos-rebuild switch --flake .#<hostname>
+```

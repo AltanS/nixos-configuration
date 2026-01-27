@@ -47,6 +47,9 @@
 
       # Help - show all keybindings
       "$mainMod, slash, exec, $terminal --hold -e hyprctl binds"
+
+      # Notification center toggle (swaync)
+      "$mainMod, N, exec, swaync-client -t"
     ];
 
     bindm = [
