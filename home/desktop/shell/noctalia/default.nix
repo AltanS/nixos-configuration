@@ -1,9 +1,6 @@
-{ inputs, pkgs-unstable, ... }: {
-  imports = [ inputs.noctalia.homeModules.default ];
-
-  # quickshell provides the `qs` command needed for IPC
-  home.packages = [
-    pkgs-unstable.quickshell
+{ inputs, ... }: {
+  imports = [
+    inputs.noctalia.homeModules.default
   ];
 
   programs.noctalia-shell = {

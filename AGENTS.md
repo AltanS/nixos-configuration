@@ -78,7 +78,7 @@ To add shell-specific keybindings in WM configs, define them separately and merg
 { desktop, ... }:
 let
   noctaliaBinds = {
-    "Mod+Space".action.spawn = [ "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle" ];
+    "Mod+Space".action.spawn = [ "noctalia-shell" "ipc" "call" "launcher" "toggle" ];
   };
   waybarBinds = {
     "Mod+N".action.spawn = [ "swaync-client" "-t" ];
@@ -142,15 +142,18 @@ Key niri concepts:
 - **Documentation**: https://docs.noctalia.dev/
   - NixOS setup: https://docs.noctalia.dev/getting-started/nixos/
   - Keybinds: https://docs.noctalia.dev/getting-started/keybinds/
+  - IPC docs: https://docs.noctalia.dev/development/plugins/ipc/
 - **GitHub**: https://github.com/noctalia-dev/noctalia-shell
+- **Reference Config**: https://github.com/argosnothing/nixos-config (see `modules/features/gui/wms/desktop-shells/noctalia-shell.nix`)
 - **Requires**: nixpkgs-unstable (for quickshell dependency)
 
 Key noctalia concepts:
 - No built-in keybindings - configure in your WM
-- IPC commands: `qs -c noctalia-shell ipc call <target> <action>`
+- IPC commands: `noctalia-shell ipc call <target> <action>`
   - `launcher toggle` - application launcher
   - `controlCenter toggle` - notifications & quick settings
   - `settings toggle` - settings panel
+- The noctalia-shell package wraps quickshell internally - no need to add quickshell to home.packages separately
 
 ### Hyprland
 

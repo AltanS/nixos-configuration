@@ -9,13 +9,19 @@ let
     waybar = ./shell/waybar;
     noctalia = ./shell/noctalia;
   }.${desktop.shell};
+
+  # Shell-specific shared components
+  # - waybar needs rofi (launcher) and swaync (notifications)
+  # - noctalia has these built-in
+  waybarSharedModules = [
+    ./shared/rofi.nix
+    ./shared/swaync.nix
+  ];
 in {
   imports = [
     wmModule
     shellModule
-    ./shared/rofi.nix
-    ./shared/swaync.nix
     ./shared/wallpaper.nix
     ./shared/gtk.nix
-  ];
+  ] ++ lib.optionals (desktop.shell == "waybar") waybarSharedModules;
 }
