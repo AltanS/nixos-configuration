@@ -44,15 +44,30 @@ imports = [ inputs.niri-flake.homeModules.niri ];
 programs.niri.settings = { ... };
 ```
 
-### noctalia Requires Unstable
+### noctalia Requires Unstable + quickshell in PATH
 
 Noctalia depends on quickshell which is only in nixpkgs-unstable:
 
 ```nix
+# flake.nix
 noctalia = {
   url = "github:noctalia-dev/noctalia-shell";
   inputs.nixpkgs.follows = "nixpkgs-unstable";  # NOT nixpkgs
 };
+```
+
+Additionally, the `qs` command (quickshell) must be in PATH for IPC commands to work (launcher, control center, etc.):
+
+```nix
+# home/desktop/shell/noctalia/default.nix
+{ pkgs-unstable, ... }: {
+  home.packages = [ pkgs-unstable.quickshell ];
+}
+```
+
+Pass `pkgs-unstable` via `extraSpecialArgs` in flake.nix:
+```nix
+pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
 ```
 
 ### Conditional Shell Bindings
