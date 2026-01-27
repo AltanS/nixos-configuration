@@ -67,6 +67,7 @@
                 inherit inputs homeStateVersion desktop;
                 user = "altan";
                 userSpecificData = import ./users/altan.nix { pkgs = nixpkgs.legacyPackages.${system}; };
+                pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
               };
               users.altan = import ./home;
             };
