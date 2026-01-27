@@ -137,6 +137,11 @@ Key niri concepts:
 - `Mod+Shift+/` shows hotkey overlay
 - Niri does NOT load default bindings - all binds must be explicit
 
+**niri-unstable vs stable:**
+- `niri-unstable` has overview feature (`toggle-overview`) but has VM compatibility issues
+- VMs use stable niri; real hardware uses unstable (controlled by `hostname != "vm"`)
+- See: https://github.com/Smithay/smithay/issues/1415
+
 ### Noctalia Shell (Wayland Desktop Shell)
 
 - **Documentation**: https://docs.noctalia.dev/
@@ -174,6 +179,8 @@ Key noctalia concepts:
 | File Manager | Super+E | Mod+E |
 | Close Window | Super+C / Alt+F4 | Mod+Q / Alt+F4 |
 | Show Keybinds | Super+/ | Mod+Shift+/ |
+| Keybind Cheatsheet | - | Mod+F1 (noctalia) |
+| Overview | - | Mod+Tab (unstable only) |
 | Notifications | Super+N | Mod+N |
 
 ## Development Workflow

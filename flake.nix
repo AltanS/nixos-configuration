@@ -12,7 +12,7 @@
 
     niri-flake = {
       url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # Don't follow our nixpkgs - niri-unstable needs newer deps (libgbm)
     };
 
     noctalia = {
@@ -64,7 +64,7 @@
               useUserPackages = true;
               backupFileExtension = "backup";
               extraSpecialArgs = {
-                inherit inputs homeStateVersion desktop;
+                inherit inputs homeStateVersion desktop hostname;
                 user = "altan";
                 userSpecificData = import ./users/altan.nix { pkgs = nixpkgs.legacyPackages.${system}; };
                 pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};

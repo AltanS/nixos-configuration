@@ -1,9 +1,18 @@
-{ desktop, lib, ... }:
+{ desktop, hostname, lib, ... }:
 let
   shellCommand = {
     waybar = [ "waybar" ];
     noctalia = [ "noctalia" ];
   }.${desktop.shell};
+
+  # niri-unstable has overview feature but doesn't work in VMs
+  # (see: https://github.com/Smithay/smithay/issues/1415)
+  useUnstable = hostname != "vm";
+
+  # Overview keybind only available in niri-unstable
+  overviewBinds = lib.optionalAttrs useUnstable {
+    "Mod+Tab".action.toggle-overview = {};
+  };
 
   # Shell-specific keybindings
   noctaliaBinds = {
@@ -13,6 +22,8 @@ let
     "Mod+N".action.spawn = [ "noctalia-shell" "ipc" "call" "controlCenter" "toggle" ];
     # Settings panel
     "Mod+I".action.spawn = [ "noctalia-shell" "ipc" "call" "settings" "toggle" ];
+    # Keybind cheatsheet
+    "Mod+F1".action.spawn = [ "noctalia-shell" "ipc" "call" "plugin:keybind-cheatsheet" "toggle" ];
   };
 
   waybarBinds = {
@@ -157,7 +168,7 @@ in {
 
         # Close window with Alt+F4
         "Alt+F4".action.close-window = {};
-      } // shellBinds;
+      } // shellBinds // overviewBinds;
     };
   };
 }
