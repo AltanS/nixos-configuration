@@ -98,7 +98,7 @@ in {
         "Mod+Shift+J".action.move-window-down = {};
         "Mod+Shift+K".action.move-window-up = {};
 
-        # Workspace navigation
+        # Workspace navigation (by number)
         "Mod+1".action.focus-workspace = 1;
         "Mod+2".action.focus-workspace = 2;
         "Mod+3".action.focus-workspace = 3;
@@ -109,7 +109,13 @@ in {
         "Mod+8".action.focus-workspace = 8;
         "Mod+9".action.focus-workspace = 9;
 
-        # Move window to workspace
+        # Workspace navigation (sequential)
+        "Mod+Page_Down".action.focus-workspace-down = {};
+        "Mod+Page_Up".action.focus-workspace-up = {};
+        "Mod+U".action.focus-workspace-down = {};
+        "Mod+O".action.focus-workspace-up = {};
+
+        # Move window to workspace (by number)
         "Mod+Shift+1".action.move-column-to-workspace = 1;
         "Mod+Shift+2".action.move-column-to-workspace = 2;
         "Mod+Shift+3".action.move-column-to-workspace = 3;
@@ -120,11 +126,24 @@ in {
         "Mod+Shift+8".action.move-column-to-workspace = 8;
         "Mod+Shift+9".action.move-column-to-workspace = 9;
 
+        # Move window to workspace (sequential)
+        "Mod+Ctrl+Page_Down".action.move-column-to-workspace-down = {};
+        "Mod+Ctrl+Page_Up".action.move-column-to-workspace-up = {};
+        "Mod+Ctrl+U".action.move-column-to-workspace-down = {};
+        "Mod+Ctrl+O".action.move-column-to-workspace-up = {};
+
         # Layout
         "Mod+F".action.maximize-column = {};
         "Mod+Shift+F".action.fullscreen-window = {};
+        "Mod+R".action.switch-preset-column-width = {};
         "Mod+Comma".action.consume-window-into-column = {};
         "Mod+Period".action.expel-window-from-column = {};
+        "Mod+BracketLeft".action.consume-or-expel-window-left = {};
+        "Mod+BracketRight".action.consume-or-expel-window-right = {};
+
+        # Floating
+        "Mod+V".action.toggle-window-floating = {};
+        "Mod+Shift+V".action.switch-focus-between-floating-and-tiling = {};
 
         # Resize
         "Mod+Minus".action.set-column-width = "-10%";
