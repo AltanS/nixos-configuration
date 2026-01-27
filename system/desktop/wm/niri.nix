@@ -2,7 +2,7 @@
   # Enable niri via the niri-flake NixOS module
   programs.niri.enable = true;
 
-  # Enable xwayland for compatibility with X11 apps
+  # Use stable niri from nixpkgs
   programs.niri.package = pkgs.niri;
 
   # xdg-desktop-portal-gnome works well with niri

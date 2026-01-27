@@ -7,8 +7,8 @@ let
 
   # Shell-specific keybindings
   noctaliaBinds = {
-    # Noctalia launcher (like rofi but integrated)
-    "Mod+Space".action.spawn = [ "noctalia-shell" "ipc" "call" "launcher" "toggle" ];
+    # Noctalia launcher (Ctrl+R)
+    "Ctrl+R".action.spawn = [ "noctalia-shell" "ipc" "call" "launcher" "toggle" ];
     # Control center (quick settings, notifications)
     "Mod+N".action.spawn = [ "noctalia-shell" "ipc" "call" "controlCenter" "toggle" ];
     # Settings panel
@@ -16,8 +16,8 @@ let
   };
 
   waybarBinds = {
-    # Rofi app launcher
-    "Mod+D".action.spawn = [ "rofi" "-show" "drun" ];
+    # Rofi app launcher (Ctrl+R)
+    "Ctrl+R".action.spawn = [ "rofi" "-show" "drun" ];
     # SwayNC notification center
     "Mod+N".action.spawn = [ "swaync-client" "-t" ];
   };
@@ -72,7 +72,7 @@ in {
         "Mod+Shift+Slash".action.show-hotkey-overlay = {};
 
         # Application launchers
-        "Mod+T".action.spawn = "kitty";
+        "Ctrl+Alt+T".action.spawn = "ghostty";
         "Mod+E".action.spawn = "nautilus";
 
         # Window management

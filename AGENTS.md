@@ -169,8 +169,8 @@ Key noctalia concepts:
 
 | Action | Hyprland | Niri |
 |--------|----------|------|
-| Terminal | Super+Q | Mod+T |
-| App Launcher | Super+R | Mod+D |
+| Terminal | Super+Q | Ctrl+Alt+T |
+| App Launcher | Super+R | Ctrl+R |
 | File Manager | Super+E | Mod+E |
 | Close Window | Super+C / Alt+F4 | Mod+Q / Alt+F4 |
 | Show Keybinds | Super+/ | Mod+Shift+/ |
