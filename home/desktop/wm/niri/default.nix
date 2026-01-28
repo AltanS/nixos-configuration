@@ -87,7 +87,7 @@ in {
         "Mod+E".action.spawn = "nautilus";
 
         # Window management
-        "Mod+Q".action.close-window = {};
+        "Alt+Q".action.close-window = {};
         "Mod+Shift+E".action.quit = { skip-confirmation = true; };
 
         # Focus movement
