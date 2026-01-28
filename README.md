@@ -89,6 +89,28 @@ cp .env.example .env
 
 The script syncs files directly via rsync, bypassing git for faster iteration.
 
+### Manual Rebuild on Physical Hosts
+
+For physical machines (not the VM), where `/etc/nixos` is a git clone:
+
+```bash
+# SSH into the host
+ssh altan@<host-ip>
+
+# Navigate to the NixOS configuration
+cd /etc/nixos
+
+# Pull latest changes
+git pull
+
+# Rebuild and switch
+sudo nixos-rebuild switch --flake .#thinkcentre
+```
+
+The `.#thinkcentre` syntax means: from the flake in the current directory (`.`), use the NixOS configuration named `thinkcentre` (defined in `flake.nix`).
+
+**Note:** The VM uses the `dev-sync` script which rsyncs files directly, so `/etc/nixos` on the VM is not a git repository. Use `./scripts/dev-sync rebuild` from your dev machine instead.
+
 ## VM Testing
 
 For testing on Fedora Silverblue with virt-manager, see **[docs/vm-testing.md](docs/vm-testing.md)**.
