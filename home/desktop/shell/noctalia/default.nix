@@ -15,6 +15,14 @@
       bar = {
         position = "top";
       };
+      wallpaper = {
+        enabled = true;
+        directory = "~/.local/share/wallpapers";
+        automation = true;
+        randomIntervalSec = 300;
+        transitionDuration = 1500;
+        transitionType = "random";
+      };
     };
 
     # Plugin sources and enabled plugins

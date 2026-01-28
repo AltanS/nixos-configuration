@@ -52,8 +52,7 @@ in {
       };
 
       spawn-at-startup = [
-        { command = [ "swww-daemon" ]; }
-        { command = [ "wallpaper-rotate" ]; }
+        # NOTE: swww-daemon and wallpaper-rotate removed - noctalia manages wallpapers
         { command = shellCommand; }
       ];
 
