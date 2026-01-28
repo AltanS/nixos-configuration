@@ -5,7 +5,6 @@ let
     # Essential desktop apps
     firefox
     nautilus
-    zed-editor
 
     # Terminal emulators
     ghostty
@@ -53,6 +52,7 @@ let
     # Development
     vscode
     code-cursor
+    zed-editor
 
     # Media & creativity
     spotify
