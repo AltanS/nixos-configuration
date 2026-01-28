@@ -19,7 +19,6 @@ let
     # CLI utilities
     cliphist
     wl-clipboard
-    rofi
     wget
     curl
     git

@@ -1,4 +1,7 @@
-{
+{ pkgs, ... }: {
+  # Rofi is used as app launcher with waybar shell
+  home.packages = [ pkgs.rofi ];
+
   programs.waybar = {
     enable = true;
     style = ''
