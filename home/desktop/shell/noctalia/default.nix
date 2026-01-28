@@ -14,38 +14,39 @@
       };
       bar = {
         position = "top";
-        widgetsLeft = [
-          "Launcher"
-          "ActiveWindow"
-          "Workspace"
-        ];
-        widgetsCenter = [
-          "Clock"
-        ];
-        widgetsRight = [
-          "Tray"
-          "NotificationHistory"
-          "Battery"
-          "Volume"
-          "Brightness"
-          {
-            id = "SystemMonitor";
-            compactMode = false;
-            usePrimaryColor = false;
-            useMonospaceFont = true;
-            showCpuUsage = true;
-            showCpuTemp = true;
-            showLoadAverage = false;
-            showMemoryUsage = true;
-            showMemoryAsPercent = false;
-            showSwapUsage = false;
-            showNetworkStats = true;
-            showDiskUsage = false;
-            diskPath = "/";
-          }
-          "MediaMini"
-          "ControlCenter"
-        ];
+        widgets = {
+          left = [
+            {
+              id = "SystemMonitor";
+              compactMode = false;
+              usePrimaryColor = false;
+              useMonospaceFont = true;
+              showCpuUsage = true;
+              showCpuTemp = true;
+              showLoadAverage = false;
+              showMemoryUsage = true;
+              showMemoryAsPercent = false;
+              showSwapUsage = false;
+              showNetworkStats = true;
+              showDiskUsage = false;
+              diskPath = "/";
+            }
+            { id = "ActiveWindow"; }
+            { id = "Workspace"; }
+          ];
+          center = [
+            { id = "Clock"; }
+          ];
+          right = [
+            { id = "Tray"; }
+            { id = "NotificationHistory"; }
+            { id = "Battery"; }
+            { id = "Volume"; }
+            { id = "Brightness"; }
+            { id = "MediaMini"; }
+            { id = "ControlCenter"; }
+          ];
+        };
       };
       wallpaper = {
         enabled = true;

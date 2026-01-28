@@ -240,3 +240,15 @@ Rebuild and switch:
 ```bash
 sudo nixos-rebuild switch --flake .#<hostname>
 ```
+
+### Restart Services Without Logout
+
+After rebuilding, restart desktop services to see changes immediately:
+
+```bash
+# Restart noctalia shell (bar, launcher, control center)
+systemctl --user restart noctalia-shell
+
+# Via SSH to VM
+sshpass -p 'test' ssh altan@192.168.122.3 'systemctl --user restart noctalia-shell'
+```
