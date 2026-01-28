@@ -16,16 +16,34 @@
         position = "top";
         widgetsLeft = [
           "Launcher"
+          "ActiveWindow"
+          "Workspace"
         ];
         widgetsCenter = [
           "Clock"
         ];
         widgetsRight = [
-          "SystemMonitor"
           "Tray"
           "NotificationHistory"
+          "Battery"
           "Volume"
           "Brightness"
+          {
+            id = "SystemMonitor";
+            compactMode = false;
+            usePrimaryColor = false;
+            useMonospaceFont = true;
+            showCpuUsage = true;
+            showCpuTemp = true;
+            showLoadAverage = false;
+            showMemoryUsage = true;
+            showMemoryAsPercent = false;
+            showSwapUsage = false;
+            showNetworkStats = true;
+            showDiskUsage = false;
+            diskPath = "/";
+          }
+          "MediaMini"
           "ControlCenter"
         ];
       };
