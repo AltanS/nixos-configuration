@@ -14,6 +14,20 @@
       };
       bar = {
         position = "top";
+        widgetsLeft = [
+          "Launcher"
+        ];
+        widgetsCenter = [
+          "Clock"
+        ];
+        widgetsRight = [
+          "SystemMonitor"
+          "Tray"
+          "NotificationHistory"
+          "Volume"
+          "Brightness"
+          "ControlCenter"
+        ];
       };
       wallpaper = {
         enabled = true;
