@@ -1,15 +1,11 @@
-{ pkgs, userSpecificData, ... }: {
-  home.packages = with pkgs; [
-    # Desktop apps
-    anki
-    obsidian
-    vscode
-    code-cursor
+{ pkgs, hostname, userSpecificData, ... }:
+let
+  # Minimal packages for all hosts (including VM)
+  basePackages = with pkgs; [
+    # Essential desktop apps
     firefox
-    google-chrome
-    spotify
-    gearlever
     nautilus
+    zed-editor
 
     # Terminal emulators
     ghostty
@@ -43,5 +39,39 @@
     # Wayland utilities
     libsForQt5.xwaylandvideobridge
     libnotify
-  ] ++ (userSpecificData.extraPackages or []);
+  ];
+
+  # Additional packages for physical hosts (not VM)
+  extendedPackages = with pkgs; [
+    # Productivity
+    anki
+    obsidian
+    onlyoffice-desktopeditors
+    xournalpp
+    evince
+
+    # Development
+    vscode
+    code-cursor
+
+    # Media & creativity
+    spotify
+    pinta
+    mpv
+
+    # Communication & sharing
+    localsend
+
+    # Browsers
+    google-chrome
+
+    # Utilities
+    gearlever
+  ];
+
+  isPhysicalHost = hostname != "vm";
+in {
+  home.packages = basePackages
+    ++ (if isPhysicalHost then extendedPackages else [])
+    ++ (userSpecificData.extraPackages or []);
 }
