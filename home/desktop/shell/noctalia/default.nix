@@ -17,11 +17,13 @@
       };
       wallpaper = {
         enabled = true;
-        directory = "~/.local/share/wallpapers";
-        automation = true;
+        directory = "/home/altan/.local/share/wallpapers";
+        automationEnabled = true;
+        wallpaperChangeMode = "random";
         randomIntervalSec = 300;
         transitionDuration = 1500;
         transitionType = "random";
+        setWallpaperOnAllMonitors = true;
       };
     };
 

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   wallpaperDir = ../../../assets/wallpapers;
 
@@ -45,11 +45,26 @@ in
   # NOTE: swww disabled - noctalia manages wallpapers now
   # home.packages = [ pkgs.swww wallpaperScript ];
 
-  # Link wallpapers to home directory (still needed for noctalia)
-  home.file.".local/share/wallpapers" = {
-    source = wallpaperDir;
-    recursive = true;
-  };
+  # Copy wallpapers to home directory (noctalia doesn't follow nix store symlinks)
+  # Also pre-populate wallpapers.json so noctalia has a default wallpaper on first start
+  home.activation.copyWallpapers = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    mkdir -p ~/.local/share/wallpapers
+    rm -rf ~/.local/share/wallpapers/*
+    cp -L ${wallpaperDir}/* ~/.local/share/wallpapers/
+    chmod -R u+rw ~/.local/share/wallpapers/
+
+    # Pre-populate noctalia wallpapers.json if it doesn't exist
+    # Noctalia doesn't auto-select a wallpaper on first start
+    mkdir -p ~/.cache/noctalia
+    if [ ! -f ~/.cache/noctalia/wallpapers.json ]; then
+      cat > ~/.cache/noctalia/wallpapers.json << 'WALLPAPER_JSON'
+{
+    "defaultWallpaper": "/home/altan/.local/share/wallpapers/a_quiet_mind_by_aenami_dbjhb9n.png",
+    "wallpapers": {}
+}
+WALLPAPER_JSON
+    fi
+  '';
 
   # NOTE: Systemd services disabled - noctalia manages wallpapers now
   # Systemd service for wallpaper rotation
