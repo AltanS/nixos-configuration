@@ -1,9 +1,9 @@
 { pkgs, stateVersion, hostname, user, ... }: {
   imports = [
     ./hardware.nix
-    ../../system/core
-    ../../system/desktop
-    ../../system/hardware/vm.nix
+    ../../system/profiles/desktop.nix
+    ../../system/hardware/qemu.nix
+    ../../system/services/docker.nix
   ];
 
   # VM uses GRUB, not systemd-boot

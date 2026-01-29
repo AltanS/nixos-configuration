@@ -1,10 +1,10 @@
 { pkgs, stateVersion, hostname, ... }: {
   imports = [
     ./hardware.nix
-    ../../system/core
-    ../../system/desktop
+    ../../system/profiles/desktop.nix
     ../../system/desktop/gnome.nix  # GDM + GNOME as fallback
-    ../../system/hardware
+    ../../system/hardware/bluetooth.nix
+    ../../system/hardware/intel.nix
   ];
 
   networking.hostName = hostname;

@@ -52,8 +52,19 @@ sync_files() {
         "$PROJECT_DIR/" \
         "$VM_USER@$VM_HOST:$TEMP_PATH/"
 
-    # Step 2: sudo rsync from temp to /etc/nixos
-    run_on_vm rsync -a --delete "$TEMP_PATH/" "$VM_NIXOS_PATH/"
+    # Step 2: sudo rsync from temp to /etc/nixos (preserve .git for flake)
+    run_on_vm rsync -a --delete --exclude='.git' "$TEMP_PATH/" "$VM_NIXOS_PATH/"
+
+    # Step 3: ensure git repo exists and files are committed (required for flakes)
+    sshpass -p "$VM_PASS" ssh "$VM_USER@$VM_HOST" "echo '$VM_PASS' | sudo -S bash -c 'cd $VM_NIXOS_PATH && \
+        if [ ! -d .git ]; then \
+            git init && \
+            git config user.email vm@local && \
+            git config user.name VM && \
+            git config --global --add safe.directory $VM_NIXOS_PATH; \
+        fi && \
+        git add -A && \
+        (git diff-index --quiet HEAD 2>/dev/null || git commit -m \"sync from host\")'"
 
     echo -e "${GREEN}Sync complete!${NC}"
 }

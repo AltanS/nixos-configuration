@@ -64,7 +64,8 @@ in {
         QT_QPA_PLATFORM = "wayland";
       };
 
-      prefer-no-csd = true;
+      # Allow client-side decorations so apps like Ghostty can show their header bars
+      prefer-no-csd = false;
 
       window-rules = [
         {

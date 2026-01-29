@@ -85,6 +85,7 @@
         keybind-cheatsheet = {
           enabled = true;
           sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+          version = "3.0.0";
         };
       };
       version = 1;
