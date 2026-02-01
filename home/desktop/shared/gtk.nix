@@ -22,9 +22,10 @@
     };
   };
 
-  # QT theming to match GTK
+  # QT theming to match GTK (using adwaita instead of gtk, which requires X11)
   qt = {
     enable = true;
-    platformTheme.name = "gtk";
+    platformTheme.name = "adwaita";
+    style.name = "adwaita-dark";
   };
 }

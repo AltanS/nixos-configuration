@@ -1,10 +1,11 @@
 { userSpecificData, ... }: {
   programs.git = {
     enable = true;
-    userName = userSpecificData.gitUsername or null;
-    userEmail = userSpecificData.gitEmail or null;
-
-    extraConfig = {
+    settings = {
+      user = {
+        name = userSpecificData.gitUsername or null;
+        email = userSpecificData.gitEmail or null;
+      };
       init.defaultBranch = "main";
       core.autocrlf = "input";
       pull.rebase = false;

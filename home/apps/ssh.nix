@@ -7,17 +7,14 @@ let
       path;
 
   identities = userSpecificData.sshIdentities or [];
-
-  identityFileLines = lib.strings.concatMapStringsSep "\n"
-    (identityPath: "  IdentityFile ${expandHome identityPath}")
-    identities;
 in {
   programs.ssh = {
     enable = true;
-    addKeysToAgent = "confirm";
+    enableDefaultConfig = false;
 
-    extraConfig = ''
-      ${identityFileLines}
-    '';
+    matchBlocks."*" = {
+      addKeysToAgent = "confirm";
+      identityFile = lib.optionals (identities != []) (map expandHome identities);
+    };
   };
 }

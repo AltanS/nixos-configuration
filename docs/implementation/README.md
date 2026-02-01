@@ -21,6 +21,7 @@ docs/implementation/
 
 | ID | Milestone | Completed |
 |----|-----------|-----------|
+| M04 | [DMS Integration](archive/M04-dms-integration.md) | 2026-02-01 |
 | M03 | [Terminal Tools](archive/M03-terminal-tools.md) | 2026-01-27 |
 | M02 | [Desktop Polish](archive/M02-desktop-polish.md) | 2026-01-27 |
 | M01 | VM Hyprland Setup | 2026-01-23 |

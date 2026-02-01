@@ -3,6 +3,7 @@ let
   shellCommand = {
     waybar = [ "waybar" ];
     noctalia = [ "noctalia" ];
+    dms = [ "dms" "run" ];
   }.${desktop.shell};
 
   # niri-unstable has overview feature but doesn't work in VMs
@@ -33,9 +34,19 @@ let
     "Mod+N".action.spawn = [ "swaync-client" "-t" ];
   };
 
+  dmsBinds = {
+    # DMS spotlight launcher
+    "Ctrl+R".action.spawn = [ "dms" "ipc" "call" "spotlight" "toggle" ];
+    # DMS notifications
+    "Mod+N".action.spawn = [ "dms" "ipc" "call" "notifications" "toggle" ];
+    # DMS settings
+    "Mod+I".action.spawn = [ "dms" "ipc" "call" "settings" "toggle" ];
+  };
+
   shellBinds = {
     noctalia = noctaliaBinds;
     waybar = waybarBinds;
+    dms = dmsBinds;
   }.${desktop.shell};
 in {
   # Note: niri-flake NixOS module already provides home-manager integration

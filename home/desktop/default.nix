@@ -8,6 +8,7 @@ let
   shellModule = {
     waybar = ./shell/waybar;
     noctalia = ./shell/noctalia;
+    dms = ./shell/dms;
   }.${desktop.shell};
 
   # Shell-specific shared components

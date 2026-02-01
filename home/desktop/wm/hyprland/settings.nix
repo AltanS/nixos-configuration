@@ -3,6 +3,7 @@ let
   shellCommand = {
     waybar = "waybar";
     noctalia = "noctalia";
+    dms = "dms run";
   }.${desktop.shell};
 in {
   wayland.windowManager.hyprland = {

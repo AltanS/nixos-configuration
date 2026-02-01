@@ -2,11 +2,10 @@
   description = "NixOS configuration with modular WM/shell support";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -17,12 +16,21 @@
 
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
-      # noctalia requires unstable for quickshell
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell/stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    dms-plugin-registry = {
+      url = "github:AvengeMedia/dms-plugin-registry";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, niri-flake, noctalia, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, niri-flake, noctalia, dms, dms-plugin-registry, ... }@inputs:
   let
     system = "x86_64-linux";
     homeStateVersion = "24.11";
@@ -37,7 +45,7 @@
       {
         hostname = "vm";
         stateVersion = "24.11";
-        desktop = { wm = "niri"; shell = "noctalia"; };
+        desktop = { wm = "niri"; shell = "dms"; };
       }
       {
         hostname = "thinkcentre";
@@ -67,7 +75,6 @@
                 inherit inputs homeStateVersion desktop hostname;
                 user = "altan";
                 userSpecificData = import ./users/altan.nix { pkgs = nixpkgs.legacyPackages.${system}; };
-                pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
               };
               users.altan = import ./home;
             };

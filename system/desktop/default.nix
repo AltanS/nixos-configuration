@@ -8,6 +8,7 @@ let
   shellModules = {
     noctalia = [ ./shell/noctalia.nix ];
     waybar = [];
+    dms = [ ./shell/dms.nix ];
   };
 in {
   imports = [

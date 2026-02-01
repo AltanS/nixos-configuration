@@ -10,7 +10,7 @@ in {
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd ${wmCommand}";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd ${wmCommand}";
         user = "greeter";
       };
       initial_session = {

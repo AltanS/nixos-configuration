@@ -11,7 +11,7 @@ let
     kitty
 
     # Fonts (JetBrains Mono with Nerd Font icons)
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    nerd-fonts.jetbrains-mono
 
     # Icon themes
     papirus-icon-theme
@@ -35,7 +35,6 @@ let
     python3
 
     # Wayland utilities
-    libsForQt5.xwaylandvideobridge
     libnotify
   ];
 
