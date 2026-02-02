@@ -1,9 +1,10 @@
 { desktop, hostname, lib, ... }:
 let
+  # Shells that manage their own startup via systemd should not be spawned here
   shellCommand = {
     waybar = [ "waybar" ];
     noctalia = [ "noctalia" ];
-    dms = [ "dms" "run" ];
+    dms = null;
   }.${desktop.shell};
 
   # niri-unstable has overview feature but doesn't work in VMs
@@ -64,8 +65,7 @@ in {
 
       spawn-at-startup = [
         # NOTE: swww-daemon and wallpaper-rotate removed - noctalia manages wallpapers
-        { command = shellCommand; }
-      ];
+      ] ++ lib.optional (shellCommand != null) { command = shellCommand; };
 
       environment = {
         NIXOS_OZONE_WL = "1";
