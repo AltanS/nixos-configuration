@@ -19,7 +19,7 @@
     gtk-single-instance = true
 
     # Theme - dark
-    theme = catppuccin-mocha
+    theme = Catppuccin Mocha
     background-opacity = 0.95
 
     # Cursor
