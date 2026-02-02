@@ -17,5 +17,17 @@
   };
 
   # Ripgrep for fast search
-  home.packages = [ pkgs.ripgrep ];
+  home.packages = with pkgs; [
+    ripgrep
+    lazygit
+    lazydocker
+    btop
+    fastfetch
+    impala
+    bluetui
+    yazi
+    duf
+    procs
+    bandwhich
+  ];
 }

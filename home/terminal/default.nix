@@ -7,6 +7,7 @@
     ./atuin.nix
     ./cli-tools.nix
     ./dev-tools.nix
+    ./neovim.nix
   ];
 
   # Enable bash so home-manager manages .bashrc and integrations work
