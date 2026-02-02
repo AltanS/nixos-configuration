@@ -16,5 +16,17 @@
     systemd.enable = true;
     enableSystemMonitoring = true;
     enableDynamicTheming = true;
+
+    plugins = {
+      aiAssistant.enable = true;
+      dankActions.enable = true;
+      dankBatteryAlerts.enable = true;
+      dankPomodoroTimer.enable = true;
+      dockerManager.enable = true;
+      dankBitwarden.enable = true;
+      polyglot.enable = true;
+      webSearch.enable = true;
+      emojiLauncher.enable = true;
+    };
   };
 }
